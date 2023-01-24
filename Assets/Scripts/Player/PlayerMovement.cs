@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
     //Base movement
     Vector3 moveDir;
     float inputAmount;
-    
+
     //Grounded/Jumping
     Vector3 raycastFloorPos;
     Vector3 floorMovement;
@@ -52,20 +52,35 @@ public class PlayerMovement : MonoBehaviour
         moveDir = Vector3.zero;
 
         //Grab Inputs
-        GetInput();
+        vertical = Input.GetAxis("Vertical");
+        horizontal = Input.GetAxis("Horizontal");
+        isJumpPressed = Input.GetKeyDown(KeyCode.Space);
 
-        CalculateInput();
+        //Correct the inputs
+        Vector3 correctedVert = vertical * Camera.main.transform.forward;
+        Vector3 correctedHorizon = horizontal * Camera.main.transform.right;
+
+        Vector3 combinedInput = correctedVert + correctedHorizon;
+
+        moveDir = new Vector3((combinedInput).normalized.x, 0, (combinedInput).normalized.z);
+
+        float inputMag = Mathf.Abs(horizontal) + Mathf.Abs(vertical);
+        inputAmount = Mathf.Clamp01(inputMag);
 
         //Movement is applied to the rigidbody in FixedUpdate
 
-        ApplyRotation();
+        //Apply Rotations
+        Quaternion rot = Quaternion.LookRotation(moveDir);
+        Quaternion targetRot = Quaternion.Slerp(transform.rotation, rot, Time.fixedDeltaTime * inputAmount * rotationSpeed);
+        transform.rotation = targetRot;
 
         if (isJumpPressed)
         {
             Jump();
         }
 
-        UpdateAnimator();
+        animator.SetFloat("forwardSpeed", inputAmount, 0.2f, Time.deltaTime);
+        animator.SetFloat("slopeNormal", slopeAmount, 0.2f, Time.deltaTime);
     }
 
 
@@ -75,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
         //Apply gravity if not grounded
         if (!IsGrounded() || slopeAmount >= 0.1f)
         {
-            gravity += Vector3.up * Physics.gravity.y * jumpFallOff * Time.deltaTime;
+            gravity += Vector3.up * Physics.gravity.y * jumpFallOff * Time.fixedDeltaTime;
         }
 
         //Apply the movement to the rigidbody with some gravity
@@ -91,39 +106,10 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void GetInput()
-    {
-        vertical = Input.GetAxis("Vertical");
-        horizontal = Input.GetAxis("Horizontal");
-        isJumpPressed = Input.GetKeyDown(KeyCode.Space);
-    }
-
     private float GetMoveSpeed()
     {
         float currentMoveSpeed = Mathf.Clamp(moveSpeed + (slopeAmount * slopeInfluence), 0, moveSpeed + 1);
         return currentMoveSpeed;
-    }
-
-    private void ApplyRotation()
-    {
-        //Apply Rotations
-        Quaternion rot = Quaternion.LookRotation(moveDir);
-        Quaternion targetRot = Quaternion.Slerp(transform.rotation, rot, Time.fixedDeltaTime * inputAmount * rotationSpeed);
-        transform.rotation = targetRot;
-    }
-
-    private void CalculateInput()
-    {
-        //Correct the inputs
-        Vector3 correctedVert = vertical * Camera.main.transform.forward;
-        Vector3 correctedHorizon = horizontal * Camera.main.transform.right;
-
-        Vector3 combinedInput = correctedVert + correctedHorizon;
-
-        moveDir = new Vector3((combinedInput).normalized.x, 0, (combinedInput).normalized.z);
-
-        float inputMag = Mathf.Abs(horizontal) + Mathf.Abs(vertical);
-        inputAmount = Mathf.Clamp01(inputMag);
     }
 
     private void Jump()
@@ -147,22 +133,27 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 FindFloor()
     {
-        float raycastWidth = 0.25f;
+        float raycastWidth = 0.5f;
         int floorAverage = 1;
 
         combinedRaycast = FloorRaycasts(0, 0, 1.6f);
         floorAverage +=
-            GetFloorAverage(raycastWidth, 0) + GetFloorAverage(-raycastWidth, 0) + GetFloorAverage(0, raycastWidth) + GetFloorAverage(0, -raycastWidth);
+            (GetFloorAverage(raycastWidth, 0) + GetFloorAverage(-raycastWidth, 0) + GetFloorAverage(0, raycastWidth) + GetFloorAverage(0, -raycastWidth));
 
         return combinedRaycast / floorAverage;
     }
 
     private int GetFloorAverage(float offsetX, float offsetZ)
     {
-        if (FloorRaycasts(offsetX, offsetZ, 1.6f) == Vector3.zero) { return 0; }
-
-        combinedRaycast += FloorRaycasts(offsetX, offsetZ, 1.6f);
-        return 1;
+        if (FloorRaycasts(offsetX, offsetZ, 1.6f) != Vector3.zero)
+        {
+            combinedRaycast += FloorRaycasts(offsetX, offsetZ, 1.6f);
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
     }
 
     private Vector3 FloorRaycasts(float offsetX, float offsetZ, float raycastLength)
@@ -173,26 +164,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (Physics.Raycast(raycastFloorPos, -Vector3.up, out RaycastHit hit, raycastLength))
         {
-            floorNormal = hit.point;
-
-            if (Vector3.Angle(floorNormal, Vector3.up) < slopeLimit)
-            {
-                return hit.point;
-            }
-            else
-            {
-                return Vector3.zero;
-            }
+            return hit.point;
         }
         else
         {
             return Vector3.zero;
         }
-    }
-
-    private void UpdateAnimator()
-    {
-        animator.SetFloat("forwardSpeed", inputAmount, 0.2f, Time.deltaTime);
-        animator.SetFloat("slopeNormal", slopeAmount, 0.2f, Time.deltaTime);
     }
 }
