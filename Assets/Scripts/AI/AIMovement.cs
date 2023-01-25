@@ -1,0 +1,83 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.AI;
+
+namespace SpyroClone.AI
+{
+    public class AIMovement : MonoBehaviour, IAction
+    {
+        [SerializeField] float maxMoveSpeed = 5f;
+        [SerializeField][Range(0, 1)] float speedFraction = 1;
+        [SerializeField] float maxNavPathLength = 40f;
+
+        NavMeshAgent agent;
+        Animator animator;
+        ActionScheduler actionScheduler;
+
+        private void Awake()
+        {
+            agent = GetComponent<NavMeshAgent>();
+            animator = GetComponent<Animator>();
+            actionScheduler = GetComponent<ActionScheduler>();
+        }
+        // Update is called once per frame
+        void Update()
+        {
+            UpdateAnimator();
+        }
+
+        public void StartMoveAction(Vector3 destination, float speedFraction)
+        {
+            actionScheduler.StartAction(this);
+            MoveToDestination(destination, speedFraction);
+        }
+
+        public void MoveToDestination(Vector3 destination, float speedFraction)
+        {
+            agent.speed = maxMoveSpeed * Mathf.Clamp01(speedFraction);
+            agent.isStopped = false;
+            agent.destination = destination;
+        }
+
+        public bool CanMoveToDest(Vector3 destination)
+        {
+            NavMeshPath path = new NavMeshPath();
+            bool hasPath = NavMesh.CalculatePath(transform.position, destination, NavMesh.AllAreas, path);
+
+            if (!hasPath) return false;
+            if (path.status != NavMeshPathStatus.PathComplete) return false;
+            if (GetPathLength(path) > maxNavPathLength) return false;
+
+            return true;
+        }
+
+        private float GetPathLength(NavMeshPath path)
+        {
+            float total = 0;
+            if (path.corners.Length < 2) return total;
+
+            for (int i = 0; i < path.corners.Length - 1; i++)
+            {
+                total += Vector3.Distance(path.corners[i], path.corners[i + 1]);
+            }
+
+            return total;
+        }
+
+        private void UpdateAnimator()
+        {
+            Vector3 velocity = agent.velocity;
+            Vector3 localVel = transform.InverseTransformDirection(velocity);
+            float speed = localVel.z;
+
+            animator.SetFloat("forwardSpeed", speed);
+        }
+
+        public void Cancel()
+        {
+            agent.isStopped = true;
+        }
+    }
+}
