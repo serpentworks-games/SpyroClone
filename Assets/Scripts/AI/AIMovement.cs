@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using SpyroClone.Core;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -15,16 +16,19 @@ namespace SpyroClone.AI
         NavMeshAgent agent;
         Animator animator;
         ActionScheduler actionScheduler;
+        Damageable damageable;
 
         private void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
             animator = GetComponent<Animator>();
             actionScheduler = GetComponent<ActionScheduler>();
+            damageable = GetComponent<Damageable>();
         }
         // Update is called once per frame
         void Update()
         {
+            agent.enabled = !damageable.GetIsDead();
             UpdateAnimator();
         }
 
@@ -37,6 +41,7 @@ namespace SpyroClone.AI
         public void MoveToDestination(Vector3 destination, float speedFraction)
         {
             agent.speed = maxMoveSpeed * Mathf.Clamp01(speedFraction);
+            if (agent.enabled == false) { return; }
             agent.isStopped = false;
             agent.destination = destination;
         }
@@ -77,6 +82,7 @@ namespace SpyroClone.AI
 
         public void Cancel()
         {
+            if (agent.enabled == false) { return; }
             agent.isStopped = true;
         }
     }

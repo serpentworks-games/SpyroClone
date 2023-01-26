@@ -1,7 +1,6 @@
 using SpyroClone.AI;
-using SpyroClone.DamageSystem;
 using UnityEngine;
-using System;
+using SpyroClone.Core;
 
 namespace SpyroClone.Combat
 {
@@ -69,9 +68,8 @@ namespace SpyroClone.Combat
 
             if (timeSinceLastAttack > attackSpeed)
             {
-                // animator.ResetTrigger("StopAttack");
-                // animator.SetTrigger("StartAttack");
-                Debug.Log("Attacking!");
+                animator.ResetTrigger("StopAttack");
+                animator.SetTrigger("StartAttack");
                 timeSinceLastAttack = 0;
             }
         }
@@ -84,7 +82,16 @@ namespace SpyroClone.Combat
         public void Cancel()
         {
             target = null;
+            animator.ResetTrigger("StartAttack");
+            animator.SetTrigger("StopAttack");
             movement.Cancel();
+        }
+
+        //AnimEvents
+        public void Hit()
+        {
+            if (target.GetIsDead()) { return; }
+            target.ApplyDamage(attackDamage);
         }
     }
 }

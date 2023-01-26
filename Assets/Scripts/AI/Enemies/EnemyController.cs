@@ -1,8 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using SpyroClone.Combat;
-using SpyroClone.DamageSystem;
+using SpyroClone.Core;
 using UnityEngine;
 
 namespace SpyroClone.AI.Enemies
@@ -49,16 +46,18 @@ namespace SpyroClone.AI.Enemies
         void Update()
         {
             if (damageable.GetIsDead()) { return; }
+
             if (CanSeeTarget() && combat.CanAttack(player))
             {
                 AttackBehaviour();
             }
-            else if(timeSinceLastSawPlayer <  suspicionTime)
+            else if(timeSinceLastSawPlayer < suspicionTime)
             {
                 actionScheduler.CancelCurrentAction();
             }
             else
             {
+                combat.Cancel();
                 PatrolAreaBehaviour();
             }
             UpdateTimers();
@@ -67,14 +66,15 @@ namespace SpyroClone.AI.Enemies
 
         private void AttackBehaviour()
         {
-            timeSinceLastSawPlayer = 0;
+            //timeSinceLastSawPlayer = 0;
             combat.Attack(player);
         }
 
 
         private bool CanSeeTarget()
         {
-            return Vector3.Distance(transform.position, player.transform.position) < chaseDistance;
+            float distToPlayer = Vector3.Distance(player.transform.position, transform.position);
+            return distToPlayer < chaseDistance;
         }
 
         private void PatrolAreaBehaviour()
