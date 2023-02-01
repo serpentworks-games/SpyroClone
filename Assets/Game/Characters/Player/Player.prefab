@@ -153,6 +153,7 @@ MonoBehaviour:
   jumpPower: 10
   slopeLimit: 45
   slopeInfluence: 5
+  kRaycastLength: 1
 --- !u!114 &4574124485782626570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,6 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 873be4f5c9a858e4b85cf4a35052428b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startingAmount: 0
 --- !u!1 &4574124485851631166
 GameObject:
   m_ObjectHideFlags: 0

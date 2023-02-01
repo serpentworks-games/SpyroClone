@@ -46,6 +46,7 @@ namespace SpyroClone.Combat
 
             if (layersToCollideWith.Contains(other.gameObject))
             {
+                Debug.Log("Collided with:" + other.gameObject.name);
                 if (other.GetComponent<Damageable>())
                 {
                     other.GetComponent<Damageable>().ApplyDamage(projDamage);

@@ -8,6 +8,7 @@ namespace SpyroClone.Player
 {
     public class PlayerMovement : MonoBehaviour
     {
+        
         [Header("Grounded Movement")]
         [SerializeField] float floorOffsetY;
         [SerializeField] float moveSpeed = 6f;
@@ -48,10 +49,13 @@ namespace SpyroClone.Player
         Vector3 gravity;
         Vector3 combinedRaycast;
         readonly float jumpFallOff = 2f;
+        readonly float lowJumpMulti = 1.5f;
 
         //Slopes
         float slopeAmount;
         Vector3 floorNormal;
+
+        public float kRaycastLength = 1f;
 
         private void Awake()
         {
@@ -104,7 +108,11 @@ namespace SpyroClone.Player
             //Apply gravity if not grounded
             if (!IsGrounded() || slopeAmount >= 0.1f)
             {
-                gravity += Vector3.up * Physics.gravity.y * jumpFallOff * Time.fixedDeltaTime;
+                gravity += Vector3.up * Physics.gravity.y * (jumpFallOff - 1) * Time.fixedDeltaTime;
+            }
+            else if (!Input.GetKey(KeyCode.Space))
+            {
+                gravity += Vector3.up * Physics.gravity.y * (lowJumpMulti - 1) * Time.fixedDeltaTime;
             }
 
             switch (movementControlType)
@@ -216,7 +224,7 @@ namespace SpyroClone.Player
             float raycastWidth = 0.5f;
             int floorAverage = 1;
 
-            combinedRaycast = FloorRaycasts(0, 0, 1.6f);
+            combinedRaycast = FloorRaycasts(0, 0, kRaycastLength);
             floorAverage +=
                 (GetFloorAverage(raycastWidth, 0) + GetFloorAverage(-raycastWidth, 0) + GetFloorAverage(0, raycastWidth) + GetFloorAverage(0, -raycastWidth));
 
@@ -225,9 +233,9 @@ namespace SpyroClone.Player
 
         private int GetFloorAverage(float offsetX, float offsetZ)
         {
-            if (FloorRaycasts(offsetX, offsetZ, 1.6f) != Vector3.zero)
+            if (FloorRaycasts(offsetX, offsetZ, kRaycastLength) != Vector3.zero)
             {
-                combinedRaycast += FloorRaycasts(offsetX, offsetZ, 1.6f);
+                combinedRaycast += FloorRaycasts(offsetX, offsetZ, kRaycastLength);
                 return 1;
             }
             else
@@ -240,7 +248,7 @@ namespace SpyroClone.Player
         {
             raycastFloorPos = transform.TransformPoint(0 + offsetX, 0 + 0.5f, 0 + offsetZ);
 
-            Debug.DrawRay(raycastFloorPos, Vector3.down, Color.magenta);
+            Debug.DrawRay(raycastFloorPos, Vector3.down * raycastLength, Color.magenta);
 
             if (Physics.Raycast(raycastFloorPos, -Vector3.up, out RaycastHit hit, raycastLength))
             {

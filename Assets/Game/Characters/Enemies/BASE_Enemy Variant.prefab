@@ -57,6 +57,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BASE_Enemy Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 3529257262853881533, guid: d6bb84f554600a04d9b5f6b03ac99fc7,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 6883101219666744715, guid: d6bb84f554600a04d9b5f6b03ac99fc7,
         type: 3}
       propertyPath: m_RootOrder
@@ -120,6 +125,22 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1916246895174191087}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &230872272947353245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3057258799616424274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbca1d5682172f243af3d73b66aa57bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropRadius: 1
+  drops:
+  - item: {fileID: 8114965357075386301, guid: 894ccde7e8588cb4fb94b70fdc4010ec, type: 3}
+    amountToDrop: 2
 --- !u!114 &3344571124276328674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,12 +168,25 @@ MonoBehaviour:
   maxHealthPoints: 1
   invunerableTime: 0
   isInvulnerable: 0
+  isPlayer: 0
   OnTakeDamage:
     m_PersistentCalls:
       m_Calls: []
   OnDeath:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 230872272947353245}
+        m_TargetAssemblyTypeName: SpyroClone.Items.ItemDropper, Assembly-CSharp
+        m_MethodName: DropItems
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnBecomeVulnerable:
     m_PersistentCalls:
       m_Calls: []

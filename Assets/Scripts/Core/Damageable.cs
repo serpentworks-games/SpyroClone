@@ -79,12 +79,15 @@ namespace SpyroClone.Core
 
             if (GetIsDead())
             {
-                animator.SetTrigger("Death");
-                if (!isPlayer)
+                if (!gameObject.CompareTag("Interactable"))
                 {
-                    GetComponent<ActionScheduler>().CancelCurrentAction();
-                    col.enabled = false;
-                    GetComponent<AICombat>().enabled = false;
+                    animator.SetTrigger("Death");
+                    if (gameObject.CompareTag("Enemy"))
+                    {
+                        GetComponent<ActionScheduler>().CancelCurrentAction();
+                        col.enabled = false;
+                        GetComponent<AICombat>().enabled = false;
+                    }
                 }
                 OnDeath?.Invoke();
             }

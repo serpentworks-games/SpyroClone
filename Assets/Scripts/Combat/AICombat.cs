@@ -90,6 +90,7 @@ namespace SpyroClone.Combat
         //AnimEvents
         public void Hit()
         {
+            if (target == null) { return; }
             if (target.GetIsDead()) { return; }
             target.ApplyDamage(attackDamage);
         }
