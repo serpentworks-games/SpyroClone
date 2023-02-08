@@ -51,7 +51,7 @@ namespace SpyroClone.Combat
                 {
                     other.GetComponent<Damageable>().ApplyDamage(projDamage);
                 }
-                if(hitEffect != null)
+                if (hitEffect != null)
                 {
                     Instantiate(hitEffect, transform.position, transform.rotation);
                 }

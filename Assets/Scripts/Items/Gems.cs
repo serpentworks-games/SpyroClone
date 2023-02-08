@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using SpyroClone.Saving;
 using UnityEngine;
 
 namespace SpyroClone.Items
 {
-    public class Gems : MonoBehaviour
+    public class Gems : MonoBehaviour, ISaveable
     {
         [SerializeField] int startingAmount = 0;
 
@@ -27,6 +28,17 @@ namespace SpyroClone.Items
             {
                 currentGemCount = 0;
             }
+        }
+
+        public object CaptureState()
+        {
+            return currentGemCount;
+        }
+
+        public void RestoreState(object state)
+        {
+            int gemCount = (int)state;
+            currentGemCount = gemCount;
         }
     }
 }

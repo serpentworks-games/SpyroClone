@@ -10,10 +10,17 @@ GameObject:
   m_Component:
   - component: {fileID: 6507312026914009031}
   - component: {fileID: 6507312026914009050}
-  - component: {fileID: 6507312026914009048}
+  - component: {fileID: 4509556247956278318}
+  - component: {fileID: 4701060334750955682}
+  - component: {fileID: 4912040774358134445}
+  - component: {fileID: 876860256730133231}
   - component: {fileID: 6507312026914009052}
   - component: {fileID: 6507312026914009051}
+  - component: {fileID: 3118607091820511419}
   - component: {fileID: 1772232888851860104}
+  - component: {fileID: 4523732071417799975}
+  - component: {fileID: 7233654832215475757}
+  - component: {fileID: 1984003137408974109}
   m_Layer: 7
   m_Name: GemChest
   m_TagString: Interactable
@@ -51,7 +58,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.7051821, y: 1.4521458, z: 1.1866665}
   m_Center: {x: 0.000000029802322, y: 0.71555245, z: 0.0020742416}
---- !u!114 &6507312026914009048
+--- !u!65 &4509556247956278318
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6507312026914009030}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.7051821, y: 1.4521458, z: 1.1866665}
+  m_Center: {x: 0.000000029802322, y: 0.71555245, z: 0.0020742416}
+--- !u!114 &4701060334750955682
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -60,73 +80,40 @@ MonoBehaviour:
   m_GameObject: {fileID: 6507312026914009030}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d0a28d8b8fc3e47afda335289dd133, type: 3}
+  m_Script: {fileID: 11500000, guid: 3ea9374b509b70f4bba37e4a2ca8cf00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealthPoints: 1
-  invunerableTime: 0
-  isInvulnerable: 0
-  isPlayer: 0
-  OnTakeDamage:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDeath:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6507312026914009052}
-        m_TargetAssemblyTypeName: SpyroClone.Interactables.PlayAnimation, Assembly-CSharp
-        m_MethodName: Interact
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1772232888851860104}
-        m_TargetAssemblyTypeName: SpyroClone.Items.ItemDropper, Assembly-CSharp
-        m_MethodName: DropItems
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 142602111700817544}
-        m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
-        m_MethodName: Play
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 6507312026914009030}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnBecomeVulnerable:
-    m_PersistentCalls:
-      m_Calls: []
-  OnHitWhileInverable:
-    m_PersistentCalls:
-      m_Calls: []
+  uniqueIdentifier: 
+--- !u!114 &4912040774358134445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6507312026914009030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f34e2a1ecf6d104da902314a648bfa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layersToCollideWith:
+    serializedVersion: 2
+    m_Bits: 512
+  interactableToTrigger: {fileID: 876860256730133231}
+--- !u!114 &876860256730133231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6507312026914009030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dee14a76749c00d4f970432943bbcbfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactRequirement: 1
+  respawns: 0
 --- !u!114 &6507312026914009052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,10 +123,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6507312026914009030}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd3f6df806a1ff544862ed13b51918d4, type: 3}
+  m_Script: {fileID: 11500000, guid: 84a09f25bc479d647961d446ea81ab65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clips:
+  interactRequirement: 1
+  isOneShot: 1
+  startDelay: 0
+  isTriggered: 0
+  animations:
   - {fileID: 6507312026914009051}
 --- !u!111 &6507312026914009051
 Animation:
@@ -157,6 +148,61 @@ Animation:
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &3118607091820511419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6507312026914009030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e90a696fb3acfbe40ada881b36904521, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactRequirement: 1
+  isOneShot: 1
+  startDelay: 0.5
+  isTriggered: 0
+  OnTriggered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1772232888851860104}
+        m_TargetAssemblyTypeName: SpyroClone.Items.ItemDropper, Assembly-CSharp
+        m_MethodName: DropItems
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6507312026914009050}
+        m_TargetAssemblyTypeName: UnityEngine.Collider, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 876860256730133231}
+        m_TargetAssemblyTypeName: SpyroClone.Interactables.GemChest, Assembly-CSharp
+        m_MethodName: SetToTriggered
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1772232888851860104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,8 +215,66 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbca1d5682172f243af3d73b66aa57bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropRadius: 0
-  drops: []
+  dropRadius: 5
+  drops:
+  - item: {fileID: 8114965357075386301, guid: 894ccde7e8588cb4fb94b70fdc4010ec, type: 3}
+    amountToDrop: 3
+--- !u!114 &4523732071417799975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6507312026914009030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91a02f7f2b33a2a45af1789426e8c567, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactRequirement: 1
+  isOneShot: 1
+  startDelay: 1
+  isTriggered: 0
+  particleSystems:
+  - {fileID: 142602111700817544}
+--- !u!114 &7233654832215475757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6507312026914009030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57d32cb511171c4479c653e3ed5e34b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactRequirement: 1
+  isOneShot: 1
+  startDelay: 1
+  isTriggered: 0
+  gameObjects:
+  - {fileID: 6507312027495903807}
+  setActive: 0
+--- !u!114 &1984003137408974109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6507312026914009030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57d32cb511171c4479c653e3ed5e34b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactRequirement: 1
+  isOneShot: 1
+  startDelay: 5
+  isTriggered: 0
+  gameObjects:
+  - {fileID: 6507312026914009030}
+  setActive: 0
 --- !u!1001 &232700129545613578
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -388,6 +492,12 @@ PrefabInstance:
 --- !u!4 &6507312027495656443 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 414680, guid: 971412afe90b27640b1c78c0641deec9,
+    type: 3}
+  m_PrefabInstance: {fileID: 6507312027496036387}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6507312027495903807 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 133660, guid: 971412afe90b27640b1c78c0641deec9,
     type: 3}
   m_PrefabInstance: {fileID: 6507312027496036387}
   m_PrefabAsset: {fileID: 0}

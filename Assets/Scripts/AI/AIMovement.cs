@@ -2,12 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using SpyroClone.Core;
+using SpyroClone.Saving;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace SpyroClone.AI
 {
-    public class AIMovement : MonoBehaviour, IAction
+    public class AIMovement : MonoBehaviour, IAction, ISaveable
     {
         [SerializeField] float maxMoveSpeed = 5f;
         [SerializeField][Range(0, 1)] float speedFraction = 1;
@@ -84,6 +85,32 @@ namespace SpyroClone.AI
         {
             if (agent.enabled == false) { return; }
             agent.isStopped = true;
+        }
+
+        //Saving
+
+        [System.Serializable]
+        struct SaveData
+        {
+            public SerializableVector3 position;
+            public SerializableQuaternion rotation;
+        }
+
+        public object CaptureState()
+        {
+            SaveData data = new()
+            {
+                position = new SerializableVector3(transform.position),
+                rotation = new SerializableQuaternion(transform.rotation)
+            };
+            return data;
+        }
+
+        public void RestoreState(object state)
+        {
+            SaveData data = (SaveData)state;
+            transform.position = data.position.ToVector();
+            transform.rotation = data.rotation.ToQuaternion();
         }
     }
 }

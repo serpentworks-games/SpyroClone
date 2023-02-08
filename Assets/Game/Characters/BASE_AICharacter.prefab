@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2160956525722951031}
   - component: {fileID: -4936179490308043650}
   - component: {fileID: 6295745260499232338}
+  - component: {fileID: -1553392047788496870}
   m_Layer: 0
   m_Name: BASE_AICharacter
   m_TagString: Untagged
@@ -120,3 +121,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be9ed1c7e74c57644a39338294af879a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxMoveSpeed: 5
+  speedFraction: 1
+  maxNavPathLength: 40
+--- !u!114 &-1553392047788496870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3529257262853881533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ea9374b509b70f4bba37e4a2ca8cf00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueIdentifier: 

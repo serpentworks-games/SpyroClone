@@ -2,13 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using SpyroClone.Combat;
+using SpyroClone.Saving;
 using UnityEngine;
 
 namespace SpyroClone.Player
 {
-    public class PlayerMovement : MonoBehaviour
+    public class PlayerMovement : MonoBehaviour, ISaveable
     {
-        
+
         [Header("Grounded Movement")]
         [SerializeField] float floorOffsetY;
         [SerializeField] float moveSpeed = 6f;
@@ -259,6 +260,32 @@ namespace SpyroClone.Player
                 return Vector3.zero;
             }
         }
+
         #endregion
+
+        [System.Serializable]
+        struct SaveData
+        {
+            public SerializableVector3 position;
+            public SerializableQuaternion rotation;
+        }
+
+        //Saving
+        public object CaptureState()
+        {
+            SaveData data = new()
+            {
+                position = new SerializableVector3(transform.position),
+                rotation = new SerializableQuaternion(transform.rotation)
+            };
+            return data;
+        }
+
+        public void RestoreState(object state)
+        {
+            SaveData data = (SaveData)state;
+            transform.position = data.position.ToVector();
+            transform.rotation = data.rotation.ToQuaternion();
+        }
     }
 }

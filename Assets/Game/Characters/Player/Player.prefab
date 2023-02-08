@@ -49,6 +49,7 @@ GameObject:
   - component: {fileID: 2825532881721324522}
   - component: {fileID: 1921822018985963547}
   - component: {fileID: 4106640279524756661}
+  - component: {fileID: 6027982651594499318}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -147,10 +148,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f30e7417e47b0a444ae51fb37ae74032, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floorOffsetY: 0.01
+  floorOffsetY: 0.05
   moveSpeed: 6
   rotationSpeed: 100
-  jumpPower: 10
+  jumpPower: 5
   slopeLimit: 45
   slopeInfluence: 5
   kRaycastLength: 1
@@ -183,10 +184,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37d0a28d8b8fc3e47afda335289dd133, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealthPoints: 3
-  invunerableTime: 0
+  maxHealthPoints: 100
+  invunerableTime: 2
   isInvulnerable: 0
-  isPlayer: 0
+  isPlayer: 1
+  diesPermanantly: 0
   OnTakeDamage:
     m_PersistentCalls:
       m_Calls: []
@@ -211,7 +213,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be214f8e0e86ad14eb46dd41ffb89b44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 0}
+  projectilePrefab: {fileID: 8877609390839207116, guid: 00ec95b28cf4ade468f43d7bb47963d3,
+    type: 3}
   projectileLaunchPoint: {fileID: 7721480800698568697}
 --- !u!114 &4106640279524756661
 MonoBehaviour:
@@ -226,6 +229,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingAmount: 0
+--- !u!114 &6027982651594499318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4574124485782626573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ea9374b509b70f4bba37e4a2ca8cf00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueIdentifier: player
 --- !u!1 &4574124485851631166
 GameObject:
   m_ObjectHideFlags: 0

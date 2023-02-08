@@ -1,18 +1,20 @@
 using System;
 using SpyroClone.AI;
 using SpyroClone.Combat;
+using SpyroClone.Saving;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 
 namespace SpyroClone.Core
 {
-    public class Damageable : MonoBehaviour
+    public class Damageable : MonoBehaviour, ISaveable
     {
         [SerializeField] int maxHealthPoints = 1;
         [SerializeField] float invunerableTime;
         [SerializeField] bool isInvulnerable;
         [SerializeField] bool isPlayer = false;
+        [SerializeField] bool diesPermanantly = false;
 
 
         public UnityEvent OnTakeDamage, OnDeath, OnBecomeVulnerable, OnHitWhileInverable;
@@ -79,21 +81,26 @@ namespace SpyroClone.Core
 
             if (GetIsDead())
             {
-                if (!gameObject.CompareTag("Interactable"))
-                {
-                    animator.SetTrigger("Death");
-                    if (gameObject.CompareTag("Enemy"))
-                    {
-                        GetComponent<ActionScheduler>().CancelCurrentAction();
-                        col.enabled = false;
-                        GetComponent<AICombat>().enabled = false;
-                    }
-                }
+                TriggerDeath();
                 OnDeath?.Invoke();
             }
             else
             {
                 OnTakeDamage?.Invoke();
+            }
+        }
+
+        private void TriggerDeath()
+        {
+            if (!gameObject.CompareTag("Interactable"))
+            {
+                animator.SetTrigger("Death");
+                if (gameObject.CompareTag("Enemy"))
+                {
+                    GetComponent<ActionScheduler>().CancelCurrentAction();
+                    col.enabled = false;
+                    GetComponent<AICombat>().enabled = false;
+                }
             }
         }
 
@@ -104,5 +111,19 @@ namespace SpyroClone.Core
             timeSinceLastHit = Mathf.Infinity;
         }
 
+        public object CaptureState()
+        {
+            return currentHitPoints;
+        }
+
+        public void RestoreState(object state)
+        {
+            int hp = (int)state;
+            currentHitPoints = hp;
+            if (diesPermanantly && currentHitPoints == 0)
+            {
+                gameObject.SetActive(false);
+            }
+        }
     }
 }
