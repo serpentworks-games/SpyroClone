@@ -7,6 +7,7 @@ namespace SpyroClone.Interactables
         Fireball, 
         Headbash, 
         ChestKey,
-        DoorKey
+        BasicKey,
+        BossKey
     }
 }

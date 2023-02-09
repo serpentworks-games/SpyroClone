@@ -10,10 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6507312026914009031}
   - component: {fileID: 6507312026914009050}
-  - component: {fileID: 4509556247956278318}
   - component: {fileID: 4701060334750955682}
   - component: {fileID: 4912040774358134445}
-  - component: {fileID: 876860256730133231}
+  - component: {fileID: 1607311479461872305}
   - component: {fileID: 6507312026914009052}
   - component: {fileID: 6507312026914009051}
   - component: {fileID: 3118607091820511419}
@@ -58,19 +57,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.7051821, y: 1.4521458, z: 1.1866665}
   m_Center: {x: 0.000000029802322, y: 0.71555245, z: 0.0020742416}
---- !u!65 &4509556247956278318
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6507312026914009030}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.7051821, y: 1.4521458, z: 1.1866665}
-  m_Center: {x: 0.000000029802322, y: 0.71555245, z: 0.0020742416}
 --- !u!114 &4701060334750955682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99,8 +85,8 @@ MonoBehaviour:
   layersToCollideWith:
     serializedVersion: 2
     m_Bits: 512
-  interactableToTrigger: {fileID: 876860256730133231}
---- !u!114 &876860256730133231
+  interactableToTrigger: {fileID: 1607311479461872305}
+--- !u!114 &1607311479461872305
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -113,7 +99,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactRequirement: 1
-  respawns: 0
+  OnSetup:
+    m_PersistentCalls:
+      m_Calls: []
+  hasBeenTriggered: 0
 --- !u!114 &6507312026914009052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,7 +157,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1772232888851860104}
-        m_TargetAssemblyTypeName: SpyroClone.Items.ItemDropper, Assembly-CSharp
+        m_TargetAssemblyTypeName: SpyroClone.Inventories.ItemDropper, Assembly-CSharp
         m_MethodName: DropItems
         m_Mode: 1
         m_Arguments:
@@ -191,18 +180,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 876860256730133231}
-        m_TargetAssemblyTypeName: SpyroClone.Interactables.GemChest, Assembly-CSharp
-        m_MethodName: SetToTriggered
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1772232888851860104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,13 +189,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6507312026914009030}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbca1d5682172f243af3d73b66aa57bb, type: 3}
+  m_Script: {fileID: 11500000, guid: 17a74f7b4b87c9b4d83359fe9bcd76e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dropRadius: 5
   drops:
-  - item: {fileID: 8114965357075386301, guid: 894ccde7e8588cb4fb94b70fdc4010ec, type: 3}
-    amountToDrop: 3
+  - item: {fileID: 11400000, guid: 50ad88e12dcb0f642acbcb2b64a4016c, type: 2}
+    amountToDrop: 2
 --- !u!114 &4523732071417799975
 MonoBehaviour:
   m_ObjectHideFlags: 0

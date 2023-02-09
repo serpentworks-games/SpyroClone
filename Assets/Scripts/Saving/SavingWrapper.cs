@@ -51,7 +51,9 @@ namespace SpyroClone.Saving
 
         public void Load()
         {
+            screenFader.FadeOutImmediate();
             savingSystem.Load(kSaveName);
+            screenFader.FadeIn();
         }
 
         public void Delete()

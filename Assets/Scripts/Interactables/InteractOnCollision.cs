@@ -9,14 +9,16 @@ namespace SpyroClone.Interactables
         [SerializeField] LayerMask layersToCollideWith;
         [SerializeField] Interactable interactableToTrigger;
 
-        private void OnTriggerEnter(Collider other) {
+        private void OnTriggerEnter(Collider other)
+        {
 
-            if(layersToCollideWith.Contains(other.gameObject))
+            if (layersToCollideWith.Contains(other.gameObject))
             {
                 var interact = other.gameObject.GetComponent<InteractTriggerObject>();
                 if (interact == null) { return; }
 
                 interactableToTrigger.InteractWithObject(interact.GetInteractRequirement());
+                interactableToTrigger.SetToTriggered();
             }
         }
     }

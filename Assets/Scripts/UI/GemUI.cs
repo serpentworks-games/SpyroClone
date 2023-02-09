@@ -1,6 +1,7 @@
-using SpyroClone.Items;
+using SpyroClone.Inventories;
 using TMPro;
 using UnityEngine;
+using SpyroClone.Inventories;
 
 namespace SpyroClone.UI
 {
@@ -8,14 +9,16 @@ namespace SpyroClone.UI
     {
         [SerializeField] TextMeshProUGUI gemValue;
 
-        Gems gems;
+        Inventory inventory;
 
-        private void Awake() {
-            gems = GameObject.FindWithTag("Player").GetComponent<Gems>();
+        private void Awake()
+        {
+            inventory = GameObject.FindWithTag("Player").GetComponent<Inventory>();
         }
 
-        private void Update() {
-            gemValue.text = gems.GetGemCount().ToString();
+        private void Update()
+        {
+            gemValue.text = inventory.GetGemCount().ToString();
         }
     }
 }

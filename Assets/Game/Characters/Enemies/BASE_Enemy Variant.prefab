@@ -134,12 +134,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3057258799616424274}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbca1d5682172f243af3d73b66aa57bb, type: 3}
+  m_Script: {fileID: 11500000, guid: 17a74f7b4b87c9b4d83359fe9bcd76e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropRadius: 1
+  dropRadius: 0
   drops:
-  - item: {fileID: 8114965357075386301, guid: 894ccde7e8588cb4fb94b70fdc4010ec, type: 3}
+  - item: {fileID: 11400000, guid: 50ad88e12dcb0f642acbcb2b64a4016c, type: 2}
     amountToDrop: 2
 --- !u!114 &3344571124276328674
 MonoBehaviour:
@@ -169,6 +169,7 @@ MonoBehaviour:
   invunerableTime: 0
   isInvulnerable: 0
   isPlayer: 0
+  diesPermanantly: 0
   OnTakeDamage:
     m_PersistentCalls:
       m_Calls: []
