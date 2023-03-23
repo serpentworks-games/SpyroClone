@@ -109,10 +109,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 989017645929232977}
     m_Modifications:
+    - target: {fileID: 302178850699280275, guid: bb92460066ab89148a802bc268380af7,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 302178850699280275, guid: bb92460066ab89148a802bc268380af7,
+        type: 3}
+      propertyPath: m_BlocksRaycasts
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1191448250536183940, guid: bb92460066ab89148a802bc268380af7,
         type: 3}
       propertyPath: m_Name
       value: ScreenFader
+      objectReference: {fileID: 0}
+    - target: {fileID: 1790385402892023233, guid: bb92460066ab89148a802bc268380af7,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 99
       objectReference: {fileID: 0}
     - target: {fileID: 2359701152799925700, guid: bb92460066ab89148a802bc268380af7,
         type: 3}

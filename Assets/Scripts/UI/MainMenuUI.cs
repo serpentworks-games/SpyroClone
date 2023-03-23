@@ -1,35 +1,65 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using SpyroClone.Saving;
 using SpyroClone.SceneManagement;
+using SpyroClone.Utils;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class MainMenuUI : MonoBehaviour
+namespace SpyroClone.UI
 {
-    public void StartNewGame()
+    public class MainMenuUI : MonoBehaviour
     {
-        StartCoroutine(LoadGame());
-    }
+        [SerializeField] GameObject continueButton;
+        LazyValue<ScreenFader> fader;
+        LazyValue<SavingWrapper> savingWrapper;
 
-    public void Quit()
-    {
-        Application.Quit();
-    }
+        private void Awake()
+        {
+            InitRefs();
+        }
 
-    private IEnumerator LoadGame()
-    {
-        DontDestroyOnLoad(gameObject);
+        private void Update()
+        {
+            if (!PlayerPrefs.HasKey("currentSaveFile"))
+            {
+                continueButton.SetActive(false);
+            }
+            continueButton.SetActive(true);
+        }
 
-        ScreenFader fader = FindObjectOfType<ScreenFader>();
+        public void StartNewGame(string saveFile)
+        {
+            savingWrapper.Value.NewGame(saveFile);
+        }
 
-        yield return fader.FadeOut();
-        yield return SceneManager.LoadSceneAsync(1);
+        public void EnableFileOptions(GameObject optionsToEnable)
+        {
+            optionsToEnable.gameObject.SetActive(true);
+        }
 
-        yield return fader.FadeWait();
+        public void ContinueGame()
+        {
+            savingWrapper.Value.ContinueGame();
+        }
 
-        yield return fader.FadeIn();
+        public void Quit()
+        {
+            Application.Quit();
+        }
 
-        Destroy(gameObject);
+        private void InitRefs()
+        {
+            fader = new LazyValue<ScreenFader>(GetScreenFader);
+            savingWrapper = new LazyValue<SavingWrapper>(GetSavingWrapper);
+        }
+
+        private SavingWrapper GetSavingWrapper()
+        {
+            return FindObjectOfType<SavingWrapper>();
+        }
+
+        private ScreenFader GetScreenFader()
+        {
+            return FindObjectOfType<ScreenFader>();
+        }
+
     }
 }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1615766335766462528}
   - component: {fileID: 5839793545432764741}
   - component: {fileID: 569091629731235310}
+  - component: {fileID: 6927950761390275363}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -61,7 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.248, g: 0.248, b: 0.248, a: 0.5686275}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -122,6 +123,26 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6927950761390275363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7746639504221728513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: 50
+  m_PreferredWidth: -1
+  m_PreferredHeight: 75
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1001 &6428200357425112530
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -142,7 +163,7 @@ PrefabInstance:
     - target: {fileID: 3525446504609214064, guid: bf59322653378504ebf96bf2e6adb9db,
         type: 3}
       propertyPath: m_fontSize
-      value: 27.7
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 3525446504609214064, guid: bf59322653378504ebf96bf2e6adb9db,
         type: 3}
@@ -168,6 +189,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_fontStyle
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3525446504609214064, guid: bf59322653378504ebf96bf2e6adb9db,
+        type: 3}
+      propertyPath: m_fontSizeMax
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 3525446504609214064, guid: bf59322653378504ebf96bf2e6adb9db,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4292467161
       objectReference: {fileID: 0}
     - target: {fileID: 4940081095767619457, guid: bf59322653378504ebf96bf2e6adb9db,
         type: 3}
