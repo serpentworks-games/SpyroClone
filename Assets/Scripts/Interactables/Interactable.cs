@@ -64,7 +64,7 @@ namespace SpyroClone.Interactables
 
         public virtual object CaptureState()
         {
-            //Debug.Log($"Saving hasBeenTriggered as {hasBeenTriggered} for {gameObject.name}");
+            Debug.Log($"Saving hasBeenTriggered as {hasBeenTriggered} for {gameObject.name}");
             return hasBeenTriggered;
         }
 
@@ -72,7 +72,7 @@ namespace SpyroClone.Interactables
         {
             bool data = (bool)state;
             hasBeenTriggered = data;
-            //Debug.Log($"Restoring hasBeenTriggered to {data} for {gameObject.name}");
+            Debug.Log($"Restoring hasBeenTriggered to {data} for {gameObject.name}");
             Setup();
         }
     }

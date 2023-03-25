@@ -15,8 +15,11 @@ namespace SpyroClone.Player
         [SerializeField] float moveSpeed = 6f;
         [SerializeField] float rotationSpeed = 10f;
 
-        [Header("Jump Movement")]
+        [Header("Jump/Glide Movement")]
         [SerializeField] float jumpPower;
+        [SerializeField] float glideSpeed = 7f;
+        [SerializeField] float movingGlideForce = 200f;
+        [SerializeField] float stationaryGlideForce = 100f;
 
         [Header("Slope Tolerances")]
         [SerializeField] float slopeLimit = 45f;
@@ -39,6 +42,7 @@ namespace SpyroClone.Player
         //Input
         float vertical, horizontal;
         bool isJumpPressed;
+        bool isGlidePressed;
 
         //Base movement
         Vector3 moveDir;
@@ -51,6 +55,10 @@ namespace SpyroClone.Player
         Vector3 combinedRaycast;
         readonly float jumpFallOff = 2f;
         readonly float lowJumpMulti = 1.5f;
+
+        //Gliding
+        readonly float glideFallOff = 0.5f;
+        bool isInGlide;
 
         //Slopes
         float slopeAmount;
@@ -74,6 +82,7 @@ namespace SpyroClone.Player
             vertical = Input.GetAxis("Vertical");
             horizontal = Input.GetAxis("Horizontal");
             isJumpPressed = Input.GetKeyDown(KeyCode.Space);
+            isGlidePressed = Input.GetKeyDown(KeyCode.Space) && !IsGrounded();
 
             //Correct the inputs
             Vector3 correctedVert = vertical * Camera.main.transform.forward;
@@ -93,9 +102,20 @@ namespace SpyroClone.Player
                 Jump();
             }
 
+            if (isGlidePressed)
+            {
+                Glide();
+            }
+
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
                 SetTargetting();
+            }
+
+            if (isInGlide && IsGrounded())
+            {
+                animator.SetTrigger("Land");
+                isInGlide = false;
             }
 
             animator.SetFloat("forwardSpeed", inputAmount, 0.2f, Time.deltaTime);
@@ -106,9 +126,13 @@ namespace SpyroClone.Player
 
         private void FixedUpdate()
         {
-            //Apply gravity if not grounded
+            //Apply gravity if not grounded           
             if (!IsGrounded() || slopeAmount >= 0.1f)
             {
+                if (isInGlide)
+                {
+                    gravity += Vector3.up * Physics.gravity.y * (glideFallOff - 1) * Time.fixedDeltaTime;
+                }
                 gravity += Vector3.up * Physics.gravity.y * (jumpFallOff - 1) * Time.fixedDeltaTime;
             }
             else if (!Input.GetKey(KeyCode.Space))
@@ -116,6 +140,61 @@ namespace SpyroClone.Player
                 gravity += Vector3.up * Physics.gravity.y * (lowJumpMulti - 1) * Time.fixedDeltaTime;
             }
 
+            //Depending on if we're locked on or not, handle movement differently
+            HandleTargetting();
+
+            Vector3 velocity;
+            if (isInGlide)
+            {
+                if (moveDir == Vector3.zero)
+                {
+                    velocity = transform.forward * glideSpeed;
+
+                }
+                else
+                {
+                    velocity = moveDir * glideSpeed * inputAmount;
+                }
+            }
+            else
+            {
+                velocity = moveDir * GetMoveSpeed() * inputAmount;
+            }
+
+            rb.velocity = velocity + gravity;
+
+            if (isInGlide)
+            {
+                if (moveDir == Vector3.zero)
+                {
+                    rb.AddForce(velocity * glideSpeed * stationaryGlideForce * Time.deltaTime);
+                } else 
+                {
+                    rb.AddForce(velocity * glideSpeed * movingGlideForce * Time.deltaTime);
+                }
+                
+            }
+
+            floorMovement = new Vector3(rb.position.x, FindFloor().y + floorOffsetY, rb.position.z);
+
+            //Stick to the floor if we're grounded
+            if (floorMovement != rb.position && IsGrounded() && rb.velocity.y <= 0)
+            {
+                rb.MovePosition(floorMovement);
+                gravity.y = 0;
+                if (!isLockedOn)
+                {
+                    movementControlType = MovementControlType.Normal;
+                }
+                else
+                {
+                    movementControlType = MovementControlType.LockedOn;
+                }
+            }
+        }
+
+        private void HandleTargetting()
+        {
             switch (movementControlType)
             {
                 case MovementControlType.Normal:
@@ -147,26 +226,6 @@ namespace SpyroClone.Player
                     Quaternion lockedTargetRot = Quaternion.Slerp(transform.rotation, trLockedRot, Time.fixedDeltaTime * rotationSpeed);
                     transform.rotation = lockedTargetRot;
                     break;
-            }
-
-            //Apply the movement to the rigidbody with some gravity
-            rb.velocity = (moveDir * GetMoveSpeed() * inputAmount) + gravity;
-
-            floorMovement = new Vector3(rb.position.x, FindFloor().y + floorOffsetY, rb.position.z);
-
-            //Stick to the floor if we're grounded
-            if (floorMovement != rb.position && IsGrounded() && rb.velocity.y <= 0)
-            {
-                rb.MovePosition(floorMovement);
-                gravity.y = 0;
-                if (!isLockedOn)
-                {
-                    movementControlType = MovementControlType.Normal;
-                }
-                else
-                {
-                    movementControlType = MovementControlType.LockedOn;
-                }
             }
         }
 
@@ -207,6 +266,15 @@ namespace SpyroClone.Player
             {
                 gravity.y = jumpPower;
                 animator.SetTrigger("Jump");
+            }
+        }
+
+        private void Glide()
+        {
+            if (!IsGrounded())
+            {
+                animator.SetTrigger("Glide");
+                isInGlide = true;
             }
         }
 

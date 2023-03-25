@@ -158,6 +158,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3525446504609214064, guid: bf59322653378504ebf96bf2e6adb9db,
         type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4292467161
+      objectReference: {fileID: 0}
+    - target: {fileID: 3525446504609214064, guid: bf59322653378504ebf96bf2e6adb9db,
+        type: 3}
       propertyPath: m_VerticalAlignment
       value: 512
       objectReference: {fileID: 0}
@@ -308,6 +313,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3525446504609214064, guid: bf59322653378504ebf96bf2e6adb9db,
         type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4292467161
+      objectReference: {fileID: 0}
+    - target: {fileID: 3525446504609214064, guid: bf59322653378504ebf96bf2e6adb9db,
+        type: 3}
       propertyPath: m_HorizontalAlignment
       value: 1
       objectReference: {fileID: 0}
@@ -453,6 +463,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3525446504609214064, guid: bf59322653378504ebf96bf2e6adb9db,
         type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4292467161
+      objectReference: {fileID: 0}
+    - target: {fileID: 3525446504609214064, guid: bf59322653378504ebf96bf2e6adb9db,
+        type: 3}
       propertyPath: m_HorizontalAlignment
       value: 1
       objectReference: {fileID: 0}
@@ -569,6 +584,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 8916194259636170416}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5426918479911600320 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3525446504609214064, guid: bf59322653378504ebf96bf2e6adb9db,
+    type: 3}
+  m_PrefabInstance: {fileID: 8916194259636170416}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &9066160369245441343
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -749,7 +776,7 @@ PrefabInstance:
     - target: {fileID: 7746639504221728513, guid: 0a9f0bc85b6ea5c4d9ea11488b3e1853,
         type: 3}
       propertyPath: m_Name
-      value: SaveFile1
+      value: SaveFileButton
       objectReference: {fileID: 0}
     - target: {fileID: 8465401783320027500, guid: 0a9f0bc85b6ea5c4d9ea11488b3e1853,
         type: 3}
@@ -892,8 +919,8 @@ MonoBehaviour:
     m_Right: 25
     m_Top: 25
     m_Bottom: 25
-  m_ChildAlignment: 3
-  m_Spacing: 5
+  m_ChildAlignment: 0
+  m_Spacing: 20
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
@@ -916,3 +943,4 @@ MonoBehaviour:
   saveFileTitle: File #1
   saveFileName: saveFileOne
   hasBeenFilled: 0
+  saveFileNameText: {fileID: 5426918479911600320}

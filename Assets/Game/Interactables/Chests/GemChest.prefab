@@ -19,7 +19,6 @@ GameObject:
   - component: {fileID: 1772232888851860104}
   - component: {fileID: 4523732071417799975}
   - component: {fileID: 7233654832215475757}
-  - component: {fileID: 1984003137408974109}
   m_Layer: 7
   m_Name: GemChest
   m_TagString: Interactable
@@ -233,25 +232,6 @@ MonoBehaviour:
   gameObjects:
   - {fileID: 6507312027495903807}
   setActive: 0
---- !u!114 &1984003137408974109
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6507312026914009030}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57d32cb511171c4479c653e3ed5e34b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactRequirement: 1
-  isOneShot: 1
-  startDelay: 5
-  isTriggered: 0
-  gameObjects:
-  - {fileID: 6507312026914009030}
-  setActive: 0
 --- !u!1001 &232700129545613578
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -289,15 +269,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4085816057360858, guid: 65932b7368590234d8163da03c2055d8, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4085816057360858, guid: 65932b7368590234d8163da03c2055d8, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4085816057360858, guid: 65932b7368590234d8163da03c2055d8, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4085816057360858, guid: 65932b7368590234d8163da03c2055d8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -432,15 +412,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 414680, guid: 971412afe90b27640b1c78c0641deec9, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 414680, guid: 971412afe90b27640b1c78c0641deec9, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 414680, guid: 971412afe90b27640b1c78c0641deec9, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 414680, guid: 971412afe90b27640b1c78c0641deec9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
